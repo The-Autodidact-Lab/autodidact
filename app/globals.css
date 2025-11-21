@@ -89,6 +89,36 @@
   opacity: 0;
 }
 
+/* Simple horizontal ticker used on the About page */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+.ticker-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  white-space: nowrap;
+  will-change: transform;
+  background: transparent;
+  animation: ticker-scroll 28s linear infinite;
+}
+
+.ticker-track--slow {
+  animation-duration: 36s;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-neuron {
     animation-duration: 12s !important;
