@@ -29,24 +29,6 @@ export default function BlogPage() {
             </div>
           </article>
         </div>
-
-        <div className="mt-16 space-y-6 pt-16 border-t border-white/10">
-          <h3 className="text-lg font-semibold">Explore</h3>
-          <div className="flex gap-4">
-            <Link
-              href="/projects"
-              className="text-sm text-teal hover:text-teal/80 transition"
-            >
-              Projects →
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm text-teal hover:text-teal/80 transition"
-            >
-              Contact →
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

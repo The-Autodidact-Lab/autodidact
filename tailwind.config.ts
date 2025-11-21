@@ -66,7 +66,14 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
-        heading: ['Sora', 'ui-sans-serif', 'system-ui'],
+        heading: [
+          'Playfair Display',
+          'Iowan Old Style',
+          'Palatino Linotype',
+          'Book Antiqua',
+          'Georgia',
+          'serif',
+        ],
         mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular'],
       },
     },

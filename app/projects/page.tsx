@@ -1,212 +1,227 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Github } from 'lucide-react';
 
-interface Project {
+interface Node {
   id: string;
-  title: string;
-  github: string;
-  x: number;
-  y: number;
-  children?: string[];
-  isPlaceholder?: boolean;
+  x: number; // 0–100
+  y: number; // 0–100
+  label?: string;
+  type: 'root' | 'project' | 'placeholder';
+  tooltip: string;
+  revealAt: number; // 0–1 scroll progress
 }
 
-const projects: Record<string, Project> = {
-  'space-mapper': {
+interface Edge {
+  from: string;
+  to: string;
+  revealAt: number; // 0–1 scroll progress
+}
+
+const NODES: Node[] = [
+  {
+    id: 'root',
+    x: 50,
+    y: 30,
+    type: 'root',
+    tooltip: 'Origin of the lab — a single question about autonomous research.',
+    revealAt: 0,
+  },
+  {
     id: 'space-mapper',
-    title: 'Space Mapper',
-    github: 'https://github.com/The-Autodidact-Lab/space-mapper',
     x: 25,
-    y: 20,
-    children: ['project-1', 'project-2'],
+    y: 55,
+    type: 'project',
+    label: 'Space Mapper',
+    tooltip: 'Map capability regimes and research spaces.',
+    revealAt: 0.15,
   },
-  'crypto-contextualizer': {
+  {
     id: 'crypto-contextualizer',
-    title: 'Crypto Contextualizer',
-    github: 'https://github.com/The-Autodidact-Lab/crypto-contextualizer',
     x: 75,
-    y: 20,
-    children: ['project-3', 'project-4'],
+    y: 55,
+    type: 'project',
+    label: 'Crypto Contextualizer',
+    tooltip: 'Contextualize crypto artifacts and ecosystems.',
+    revealAt: 0.15,
   },
-  'project-1': {
-    id: 'project-1',
-    title: '?',
-    github: '',
+  {
+    id: 'future-1',
     x: 15,
-    y: 50,
-    isPlaceholder: true,
+    y: 78,
+    type: 'placeholder',
+    label: '?',
+    tooltip: 'New mode — coming soon.',
+    revealAt: 0.35,
   },
-  'project-2': {
-    id: 'project-2',
-    title: '?',
-    github: '',
+  {
+    id: 'future-2',
     x: 35,
-    y: 50,
-    isPlaceholder: true,
+    y: 82,
+    type: 'placeholder',
+    label: '?',
+    tooltip: 'New mode — coming soon.',
+    revealAt: 0.4,
   },
-  'project-3': {
-    id: 'project-3',
-    title: '?',
-    github: '',
+  {
+    id: 'future-3',
     x: 65,
-    y: 50,
-    isPlaceholder: true,
+    y: 80,
+    type: 'placeholder',
+    label: '?',
+    tooltip: 'New mode — coming soon.',
+    revealAt: 0.45,
   },
-  'project-4': {
-    id: 'project-4',
-    title: '?',
-    github: '',
+  {
+    id: 'future-4',
     x: 85,
-    y: 50,
-    isPlaceholder: true,
+    y: 76,
+    type: 'placeholder',
+    label: '?',
+    tooltip: 'New mode — coming soon.',
+    revealAt: 0.5,
   },
-};
+];
 
-function TreeCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [visibleProjects, setVisibleProjects] = useState(new Set(['space-mapper', 'crypto-contextualizer']));
+const EDGES: Edge[] = [
+  { from: 'root', to: 'space-mapper', revealAt: 0.15 },
+  { from: 'root', to: 'crypto-contextualizer', revealAt: 0.15 },
+  { from: 'space-mapper', to: 'future-1', revealAt: 0.35 },
+  { from: 'space-mapper', to: 'future-2', revealAt: 0.4 },
+  { from: 'crypto-contextualizer', to: 'future-3', revealAt: 0.45 },
+  { from: 'crypto-contextualizer', to: 'future-4', revealAt: 0.5 },
+];
+
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisibleProjects(new Set(Object.keys(projects)));
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-
-    ctx.strokeStyle = 'rgba(106, 58, 240, 0.2)';
-    ctx.lineWidth = 1.5;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-
-    const drawCurvedLine = (x1: number, y1: number, x2: number, y2: number) => {
-      const cpX = (x1 + x2) / 2;
-      const cpY = (y1 + y2) / 2 - 40;
-
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.quadraticCurveTo(cpX, cpY, x2, y2);
-      ctx.stroke();
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      const maxScrollable = scrollHeight - clientHeight;
+      if (maxScrollable <= 0) {
+        setProgress(0);
+        return;
+      }
+      const raw = scrollTop / maxScrollable;
+      setProgress(Math.min(1, Math.max(0, raw)));
     };
 
-    Object.entries(projects).forEach(([, project]) => {
-      if (project.children && visibleProjects.has(project.id)) {
-        project.children.forEach((childId) => {
-          if (visibleProjects.has(childId)) {
-            const child = projects[childId];
-            const x1 = (project.x / 100) * canvas.width;
-            const y1 = (project.y / 100) * canvas.height;
-            const x2 = (child.x / 100) * canvas.width;
-            const y2 = (child.y / 100) * canvas.height;
-            drawCurvedLine(x1, y1, x2, y2);
-          }
-        });
-      }
-    });
-  }, [visibleProjects]);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 h-full w-full pointer-events-none"
-    />
-  );
+  return progress;
 }
 
-function ProjectNode({
-  project,
-  isVisible,
-}: {
-  project: Project;
-  isVisible: boolean;
-}) {
+function ProjectsCanvas() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const progress = useScrollProgress();
+
+  const visibleNodes = NODES.filter((n) => progress >= n.revealAt);
+  const visibleEdges = EDGES.filter((e) => progress >= e.revealAt);
+
   return (
     <div
-      className={`absolute transform transition-all duration-700 ${
-        isVisible
-          ? 'opacity-100 scale-100'
-          : 'opacity-0 scale-75 pointer-events-none'
-      }`}
-      style={{
-        left: `${project.x}%`,
-        top: `${project.y}%`,
-        transform: isVisible ? 'translate(-50%, -50%)' : 'translate(-50%, -50%) scale(0.75)',
-      }}
+      ref={containerRef}
+      className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-bg via-[#12052b] to-bg"
     >
-      {project.isPlaceholder ? (
-        <div className="rounded-xl border border-white/10 bg-white/[0.03] px-6 py-4 backdrop-blur-glass shadow-brand-md">
-          <div className="text-center text-2xl font-semibold text-text/40">
-            {project.title}
+      {/* Subtle grid / starfield */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(47,198,201,0.12),_transparent_60%),radial-gradient(circle_at_bottom,_rgba(106,58,240,0.18),_transparent_55%)]" />
+
+      {/* Edges as SVG lines */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        {visibleEdges.map((edge) => {
+          const from = NODES.find((n) => n.id === edge.from);
+          const to = NODES.find((n) => n.id === edge.to);
+          if (!from || !to) return null;
+          return (
+            <path
+              key={`${edge.from}-${edge.to}`}
+              d={`M ${from.x} ${from.y} C ${(from.x + to.x) / 2} ${
+                from.y - 12
+              }, ${(from.x + to.x) / 2} ${to.y + 10}, ${to.x} ${to.y}`}
+              className="stroke-primary/35"
+              strokeWidth={0.3}
+              fill="none"
+            />
+          );
+        })}
+      </svg>
+
+      {/* Nodes as small hoverable dots */}
+      {visibleNodes.map((node) => (
+        <div
+          key={node.id}
+          className="group absolute -translate-x-1/2 -translate-y-1/2 transform"
+          style={{
+            left: `${node.x}%`,
+            top: `${node.y}%`,
+          }}
+        >
+          <div
+            className={`relative flex h-3 w-3 items-center justify-center rounded-full ${
+              node.type === 'root'
+                ? 'bg-teal shadow-[0_0_30px_rgba(47,198,201,0.65)]'
+                : node.type === 'project'
+                  ? 'bg-primary shadow-[0_0_18px_rgba(106,58,240,0.75)]'
+                  : 'bg-text/40 shadow-[0_0_12px_rgba(242,241,243,0.5)]'
+            } transition-transform duration-300 group-hover:scale-125`}
+          >
+            <div className="h-1.5 w-1.5 rounded-full bg-white/90" />
+          </div>
+
+          {/* Tooltip */}
+          <div className="pointer-events-none absolute left-1/2 top-5 z-10 w-max -translate-x-1/2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <div className="rounded-2xl border border-white/12 bg-black/70 px-3 py-2 text-xs text-text/85 shadow-brand-md backdrop-blur-frost">
+              {node.label ? (
+                <div className="mb-1 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-text/60">
+                  {node.label}
+                </div>
+              ) : (
+                <div className="mb-1 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-text/60">
+                  Origin
+                </div>
+              )}
+              <div className="max-w-xs text-[0.7rem] text-text/80">
+                {node.type === 'placeholder' ? 'Coming soon.' : node.tooltip}
+              </div>
+            </div>
           </div>
         </div>
-      ) : (
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group block rounded-xl border border-white/10 bg-white/[0.03] px-6 py-4 shadow-brand-md backdrop-blur-glass transition hover:bg-white/[0.05] hover:border-primary/20"
-        >
-          <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-text group-hover:text-teal transition">
-              {project.title}
-            </h3>
-            <Github className="h-4 w-4 text-text/50 group-hover:text-teal/70 transition" />
-          </div>
-        </a>
-      )}
+      ))}
+
+      {/* Intro copy at the top-left */}
+      <div className="pointer-events-none absolute left-6 top-6 max-w-xs text-xs text-text/70 sm:left-12 sm:top-10 sm:max-w-sm sm:text-sm">
+        <div className="mb-2 text-[0.65rem] uppercase tracking-[0.25em] text-text/45">
+          Project graph
+        </div>
+        <p>
+          Start with a single point. As you scroll, the tree of current modes
+          and speculative branches fades into view.
+        </p>
+      </div>
+
+      {/* Foggy, unknown bottom */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-[#160833]/80 to-[#050111] blur-3xl" />
+      <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 text-center text-[0.7rem] uppercase tracking-[0.25em] text-text/40">
+        Beyond this point is mist — we&apos;re still figuring it out.
+      </div>
     </div>
   );
 }
 
 export default function ProjectsPage() {
-  const [visibleProjects, setVisibleProjects] = useState(
-    new Set(['space-mapper', 'crypto-contextualizer'])
-  );
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisibleProjects(new Set(Object.keys(projects)));
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div className="min-h-screen">
-      <div className="mx-auto max-w-[var(--container)] px-4 py-16">
-        <div className="mb-12">
-          <p className="text-lg text-text/70">
-            Lorem ipsum.
-          </p>
-        </div>
-
-        <div className="relative h-[600px] rounded-2xl border border-white/10 bg-white/[0.01] backdrop-blur-glass overflow-hidden">
-          <TreeCanvas />
-
-          {Object.entries(projects).map(([, project]) => (
-            <ProjectNode
-              key={project.id}
-              project={project}
-              isVisible={visibleProjects.has(project.id)}
-            />
-          ))}
-
-          <div className="absolute bottom-6 left-6 text-sm text-text/50">
-            Coming soon
-          </div>
-        </div>
+    <div className="min-h-[220vh] bg-bg">
+      <div className="sticky top-0 h-screen">
+        <ProjectsCanvas />
       </div>
     </div>
   );
