@@ -1,95 +1,213 @@
-import { ExternalLink, Github, Map, Lock } from 'lucide-react';
-import Link from 'next/link';
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { Github } from 'lucide-react';
+
+interface Project {
+  id: string;
+  title: string;
+  github: string;
+  x: number;
+  y: number;
+  children?: string[];
+  isPlaceholder?: boolean;
+}
+
+const projects: Record<string, Project> = {
+  'space-mapper': {
+    id: 'space-mapper',
+    title: 'Space Mapper',
+    github: 'https://github.com/The-Autodidact-Lab/space-mapper',
+    x: 25,
+    y: 20,
+    children: ['project-1', 'project-2'],
+  },
+  'crypto-contextualizer': {
+    id: 'crypto-contextualizer',
+    title: 'Crypto Contextualizer',
+    github: 'https://github.com/The-Autodidact-Lab/crypto-contextualizer',
+    x: 75,
+    y: 20,
+    children: ['project-3', 'project-4'],
+  },
+  'project-1': {
+    id: 'project-1',
+    title: '?',
+    github: '',
+    x: 15,
+    y: 50,
+    isPlaceholder: true,
+  },
+  'project-2': {
+    id: 'project-2',
+    title: '?',
+    github: '',
+    x: 35,
+    y: 50,
+    isPlaceholder: true,
+  },
+  'project-3': {
+    id: 'project-3',
+    title: '?',
+    github: '',
+    x: 65,
+    y: 50,
+    isPlaceholder: true,
+  },
+  'project-4': {
+    id: 'project-4',
+    title: '?',
+    github: '',
+    x: 85,
+    y: 50,
+    isPlaceholder: true,
+  },
+};
+
+function TreeCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [visibleProjects, setVisibleProjects] = useState(new Set(['space-mapper', 'crypto-contextualizer']));
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisibleProjects(new Set(Object.keys(projects)));
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    ctx.strokeStyle = 'rgba(106, 58, 240, 0.2)';
+    ctx.lineWidth = 1.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    const drawCurvedLine = (x1: number, y1: number, x2: number, y2: number) => {
+      const cpX = (x1 + x2) / 2;
+      const cpY = (y1 + y2) / 2 - 40;
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+      ctx.stroke();
+    };
+
+    Object.entries(projects).forEach(([, project]) => {
+      if (project.children && visibleProjects.has(project.id)) {
+        project.children.forEach((childId) => {
+          if (visibleProjects.has(childId)) {
+            const child = projects[childId];
+            const x1 = (project.x / 100) * canvas.width;
+            const y1 = (project.y / 100) * canvas.height;
+            const x2 = (child.x / 100) * canvas.width;
+            const y2 = (child.y / 100) * canvas.height;
+            drawCurvedLine(x1, y1, x2, y2);
+          }
+        });
+      }
+    });
+  }, [visibleProjects]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 h-full w-full pointer-events-none"
+    />
+  );
+}
+
+function ProjectNode({
+  project,
+  isVisible,
+}: {
+  project: Project;
+  isVisible: boolean;
+}) {
+  return (
+    <div
+      className={`absolute transform transition-all duration-700 ${
+        isVisible
+          ? 'opacity-100 scale-100'
+          : 'opacity-0 scale-75 pointer-events-none'
+      }`}
+      style={{
+        left: `${project.x}%`,
+        top: `${project.y}%`,
+        transform: isVisible ? 'translate(-50%, -50%)' : 'translate(-50%, -50%) scale(0.75)',
+      }}
+    >
+      {project.isPlaceholder ? (
+        <div className="rounded-xl border border-white/10 bg-white/[0.03] px-6 py-4 backdrop-blur-glass shadow-brand-md">
+          <div className="text-center text-2xl font-semibold text-text/40">
+            {project.title}
+          </div>
+        </div>
+      ) : (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block rounded-xl border border-white/10 bg-white/[0.03] px-6 py-4 shadow-brand-md backdrop-blur-glass transition hover:bg-white/[0.05] hover:border-primary/20"
+        >
+          <div className="flex items-center gap-2">
+            <h3 className="font-semibold text-text group-hover:text-teal transition">
+              {project.title}
+            </h3>
+            <Github className="h-4 w-4 text-text/50 group-hover:text-teal/70 transition" />
+          </div>
+        </a>
+      )}
+    </div>
+  );
+}
 
 export default function ProjectsPage() {
-  const projects = [
-    {
-      title: 'Space Mapper',
-      description:
-        'A sophisticated tool for mapping and visualizing high-dimensional spaces, enabling researchers to better understand complex data structures and relationships.',
-      icon: Map,
-      github: 'https://github.com/The-Autodidact-Lab/space-mapper',
-      tags: ['Visualization', 'ML', 'Python'],
-    },
-    {
-      title: 'Crypto Contextualizer',
-      description:
-        'An advanced framework for analyzing and contextualizing cryptocurrency data, providing deep insights into market patterns and trends.',
-      icon: Lock,
-      github: 'https://github.com/The-Autodidact-Lab/crypto-contextualizer',
-      tags: ['Analysis', 'Crypto', 'Data Science'],
-    },
-  ];
+  const [visibleProjects, setVisibleProjects] = useState(
+    new Set(['space-mapper', 'crypto-contextualizer'])
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisibleProjects(new Set(Object.keys(projects)));
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen">
-      <section className="relative mx-auto max-w-[var(--container)] px-4 py-24">
-        <div className="mb-16 text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-pill border border-white/10 bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-wide text-text/70 backdrop-blur-glass">
-            Open Source
+      <div className="mx-auto max-w-[var(--container)] px-4 py-16">
+        <div className="mb-12">
+          <p className="text-lg text-text/70">
+            Lorem ipsum.
+          </p>
+        </div>
+
+        <div className="relative h-[600px] rounded-2xl border border-white/10 bg-white/[0.01] backdrop-blur-glass overflow-hidden">
+          <TreeCanvas />
+
+          {Object.entries(projects).map(([, project]) => (
+            <ProjectNode
+              key={project.id}
+              project={project}
+              isVisible={visibleProjects.has(project.id)}
+            />
+          ))}
+
+          <div className="absolute bottom-6 left-6 text-sm text-text/50">
+            Coming soon
           </div>
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            Our Projects
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-text/80">
-            Explore our open-source tools and research projects that are
-            advancing the field of AI and machine learning.
-          </p>
         </div>
-
-        <div className="grid gap-8 md:grid-cols-2">
-          {projects.map((project) => {
-            const Icon = project.icon;
-            return (
-              <div
-                key={project.title}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-brand-md backdrop-blur-glass transition hover:bg-white/[0.05]"
-              >
-                <div className="p-8">
-                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10">
-                    <Icon className="h-7 w-7 text-primary" />
-                  </div>
-
-                  <h3 className="mb-3 text-2xl font-semibold">
-                    {project.title}
-                  </h3>
-                  <p className="mb-6 text-text/70">{project.description}</p>
-
-                  <div className="mb-6 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center gap-1 rounded-pill bg-blue/15 px-3 py-1 text-xs font-medium text-blue"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-teal transition hover:text-teal/80"
-                  >
-                    <Github className="h-4 w-4" />
-                    View on GitHub
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
-
-                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-primary/5 blur-3xl transition group-hover:bg-primary/10"></div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="mt-16 text-center">
-          <p className="text-text/70">
-            More projects coming soon. Follow us on GitHub to stay updated.
-          </p>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

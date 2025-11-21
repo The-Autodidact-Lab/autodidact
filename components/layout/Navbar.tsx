@@ -2,16 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Brain } from 'lucide-react';
+import Image from 'next/image';
 
 export function Navbar() {
   const pathname = usePathname();
 
   const links = [
-    { href: '/', label: 'Home' },
     { href: '/projects', label: 'Projects' },
     { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
   ];
 
   return (
@@ -19,10 +17,15 @@ export function Navbar() {
       <nav className="mx-auto max-w-[var(--container)] flex h-16 items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-glass px-6 shadow-brand-sm">
         <Link
           href="/"
-          className="flex items-center gap-2 font-heading font-semibold text-text transition hover:text-white"
+          className="flex items-center gap-3 transition hover:opacity-80"
         >
-          <Brain className="h-6 w-6 text-teal" />
-          <span>Autodidact</span>
+          <Image
+            src="/Autodidact_Logo.png"
+            alt="Autodidact"
+            width={32}
+            height={32}
+            className="h-8 w-8"
+          />
         </Link>
 
         <div className="flex items-center gap-1">
@@ -39,6 +42,12 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/contact"
+            className="ml-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white shadow-glow transition hover:opacity-90"
+          >
+            Contact
+          </Link>
         </div>
       </nav>
     </div>
