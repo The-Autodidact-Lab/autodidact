@@ -13,7 +13,6 @@ export function Navbar() {
   const shouldShow = !isHome || hasScrolled;
 
   const links = [
-    { href: '/about', label: 'About' },
     { href: '/projects', label: 'Projects' },
     { href: '/blog', label: 'Blog' },
   ];
@@ -55,7 +54,7 @@ export function Navbar() {
             </Link>
           ))}
           <Link
-            href="/contact"
+            href="mailto:jack.fan.dev@gmail.com"
             className="ml-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white shadow-glow transition hover:opacity-90"
           >
             Contact
