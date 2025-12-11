@@ -7,17 +7,19 @@ export type BlogPost = {
   date: string; // Format: "Nov 7", "Oct 29", etc.
   author?: string; // Optional author name
   slug?: string;
+  link?: string; // Optional link (can be internal like "/blog/post-1" or external like "https://example.com")
 };
 
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: '1',
-    category: '',
-    title: '???',
+    category: 'Research',
+    title: 'Basis -- towards effective context management in multi-agent systems',
     description:
       'Improving multi-agent context management by leveraging encoding concepts and clean-context ideas.',
-    date: 'Soon',
-    author: 'Jack Fan, Samara Baksh, Maitri Shah',
+    date: '10 Dec 2025',
+    author: 'Jack Fan',
+    link: '/basis.pdf',
   },
 ];
 

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getAllPosts } from '@/data/blog-posts';
 import type { BlogPost } from '@/data/blog-posts';
 
@@ -7,6 +8,32 @@ type BlogPostItemProps = {
 };
 
 function BlogPostItem({ post, isLast }: BlogPostItemProps) {
+  // Determine if link is internal (starts with /) or external
+  const isInternalLink = post.link?.startsWith('/');
+  
+  // Title component - clickable if link exists
+  const TitleComponent = post.link ? (
+    isInternalLink ? (
+      <Link
+        href={post.link}
+        className="text-lg font-semibold transition hover:text-teal sm:text-lg"
+      >
+        {post.title}
+      </Link>
+    ) : (
+      <a
+        href={post.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-lg font-semibold transition hover:text-teal sm:text-lg"
+      >
+        {post.title}
+      </a>
+    )
+  ) : (
+    <h2 className="text-lg font-semibold sm:text-lg">{post.title}</h2>
+  );
+
   return (
     <div className="relative flex gap-4 sm:gap-6">
       {/* Date */}
@@ -25,9 +52,7 @@ function BlogPostItem({ post, isLast }: BlogPostItemProps) {
       {/* Content */}
       <div className="flex-1 pb-6 last:pb-0">
         <div className="space-y-2">
-          <h2 className="text-lg font-semibold sm:text-lg">
-            {post.title}
-          </h2>
+          {TitleComponent}
           <p className="text-sm text-text/70 sm:text-base">
             {post.description}
           </p>
