@@ -59,16 +59,7 @@ export default function Home() {
             <div className="flex-1">
               <div className="space-y-6 text-gray-600">
                 <p className="text-base leading-relaxed sm:text-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <p className="text-base leading-relaxed sm:text-lg">
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-                <p className="text-base leading-relaxed sm:text-lg">
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur.
+                  Life is a collection of <a href="https://www.ribbonfarm.com/2014/11/05/dont-surround-yourself-with-smarter-people/" target="_blank" rel="noreferrer" className="text-gray-900 transition-colors hover:text-gray-700">infinite gamescapes</a>, or a countably infinite set of infinite games and an uncountably infinite set of parrots. 
                 </p>
               </div>
             </div>
