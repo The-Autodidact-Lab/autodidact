@@ -1,45 +1,45 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { getAllPosts } from '@/data/blog-posts';
-import type { BlogPost } from '@/data/blog-posts';
+import { getAllWorkItems } from '@/data/work-items';
+import type { WorkItem } from '@/data/work-items';
 
-type BlogPostItemProps = {
-  post: BlogPost;
+type WorkItemProps = {
+  item: WorkItem;
   isLast: boolean;
 };
 
-function BlogPostItem({ post, isLast }: BlogPostItemProps) {
+function WorkItemComponent({ item, isLast }: WorkItemProps) {
   // Determine if link is internal (starts with /) or external
-  const isInternalLink = post.link?.startsWith('/');
+  const isInternalLink = item.link?.startsWith('/');
   
   // Title component - clickable if link exists
-  const TitleComponent = post.link ? (
+  const TitleComponent = item.link ? (
     isInternalLink ? (
       <Link
-        href={post.link}
+        href={item.link}
         className="text-lg font-normal text-gray-900 transition-colors hover:text-gray-700 sm:text-lg"
       >
-        {post.title}
+        {item.title}
       </Link>
     ) : (
       <a
-        href={post.link}
+        href={item.link}
         target="_blank"
         rel="noopener noreferrer"
         className="text-lg font-normal text-gray-900 transition-colors hover:text-gray-700 sm:text-lg"
       >
-        {post.title}
+        {item.title}
       </a>
     )
   ) : (
-    <h2 className="text-lg font-normal text-gray-900 sm:text-lg">{post.title}</h2>
+    <h2 className="text-lg font-normal text-gray-900 sm:text-lg">{item.title}</h2>
   );
 
   return (
     <div className="relative flex gap-4 sm:gap-6">
       {/* Date */}
       <div className="w-16 shrink-0 pt-1 text-sm text-gray-500 sm:w-20">
-        {post.date}
+        {item.date}
       </div>
 
       {/* Timeline dot and line */}
@@ -55,25 +55,21 @@ function BlogPostItem({ post, isLast }: BlogPostItemProps) {
         <div className="space-y-2">
           {TitleComponent}
           <p className="text-sm text-gray-600 sm:text-base leading-relaxed">
-            {post.description}
+            {item.description}
           </p>
-          {post.author ? (
+          {item.author ? (
             <div className="text-sm text-gray-500">
-              {post.author}
+              {item.author}
             </div>
-          ) : (
-            <div className="text-sm text-gray-500">
-              Autodidact Labs
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
   );
 }
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+export default function WorkPage() {
+  const workItems = getAllWorkItems();
 
   return (
     <div className="min-h-screen bg-white px-6 sm:px-8 lg:px-12">
@@ -88,25 +84,34 @@ export default function BlogPage() {
 
         <div className="mb-16 max-w-3xl">
           <h1 className="text-3xl font-normal text-gray-900 tracking-tighter sm:text-4xl lg:text-5xl">
-            The Main Planter
+            My Work
           </h1>
           <p className="mt-6 text-lg text-gray-600">
-            The more long-form, polished version of my blog; expect both technical and life-related content (it'll be tagged).
+            The most important roles, projects, and ideas that I put my time into.
           </p>
         </div>
 
         <div className="relative">
-          <div className="space-y-0">
-            {posts.map((post, index) => (
-              <BlogPostItem
-                key={post.id}
-                post={post}
-                isLast={index === posts.length - 1}
-              />
-            ))}
-          </div>
+          {workItems.length > 0 ? (
+            <div className="space-y-0">
+              {workItems.map((item, index) => (
+                <WorkItemComponent
+                  key={item.id}
+                  item={item}
+                  isLast={index === workItems.length - 1}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-gray-600">
+              <p className="text-base leading-relaxed">
+                This page is currently under construction. Check back soon for updates on my work and projects.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
+

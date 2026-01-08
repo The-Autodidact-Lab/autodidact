@@ -13,7 +13,7 @@ export function Navbar() {
   const shouldShow = !isHome || hasScrolled;
 
   const links = [
-    { href: '/projects', label: 'Projects' },
+    // { href: '/projects', label: 'Projects' },
     { href: '/blog', label: 'Blog' },
   ];
 
