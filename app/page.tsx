@@ -7,7 +7,7 @@ export default function Home() {
     { number: '01', title: 'My Work', subtitle: 'The most important roles, projects, and ideas that I put my time into.', href: '/work' },
     { number: '02', title: 'The Main Planter', subtitle: 'The more long-form, polished version of my blog; expect both technical and life-related content (it\'ll be tagged).', href: '/blog' },
     { number: '03', title: 'Clippings', subtitle: 'Shorter form thoughts and ideas that are worth sharing, but are one-off or aren\'t enough to form a whole post.', href: '/shortform' },
-    { number: '04', title: 'The Birds-Eye View', subtitle: 'Quite literally, I think in graphs...', href: '/graph' }
+    { number: '04', title: 'The Birds-Eye View', subtitle: 'Quite literally, I think in graphs...a visualisation of my internal notes and thoughts. Updated roughly every week.', href: '/graph' }
   ];
 
   return (
