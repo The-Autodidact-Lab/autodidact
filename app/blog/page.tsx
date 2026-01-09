@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { getAllPosts } from '@/data/blog-posts';
-import type { BlogPost } from '@/data/blog-posts';
+import { getBlogPosts } from '@/lib/blog';
+import type { BlogPost } from '@/lib/blog';
 
 type BlogPostItemProps = {
   post: BlogPost;
@@ -9,32 +9,6 @@ type BlogPostItemProps = {
 };
 
 function BlogPostItem({ post, isLast }: BlogPostItemProps) {
-  // Determine if link is internal (starts with /) or external
-  const isInternalLink = post.link?.startsWith('/');
-  
-  // Title component - clickable if link exists
-  const TitleComponent = post.link ? (
-    isInternalLink ? (
-      <Link
-        href={post.link}
-        className="text-lg font-normal text-gray-900 transition-colors hover:text-gray-700 sm:text-lg"
-      >
-        {post.title}
-      </Link>
-    ) : (
-      <a
-        href={post.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-lg font-normal text-gray-900 transition-colors hover:text-gray-700 sm:text-lg"
-      >
-        {post.title}
-      </a>
-    )
-  ) : (
-    <h2 className="text-lg font-normal text-gray-900 sm:text-lg">{post.title}</h2>
-  );
-
   return (
     <div className="relative flex gap-4 sm:gap-6">
       {/* Date */}
@@ -52,28 +26,32 @@ function BlogPostItem({ post, isLast }: BlogPostItemProps) {
 
       {/* Content */}
       <div className="flex-1 pb-6 last:pb-0">
-        <div className="space-y-2">
-          {TitleComponent}
-          <p className="text-sm text-gray-600 sm:text-base leading-relaxed">
-            {post.description}
-          </p>
-          {post.author ? (
-            <div className="text-sm text-gray-500">
-              {post.author}
-            </div>
-          ) : (
-            <div className="text-sm text-gray-500">
-              Autodidact Labs
-            </div>
-          )}
-        </div>
+        <Link
+          href={`/blog/${post.slug}`}
+          className="block hover:opacity-70 transition-opacity"
+        >
+          <div className="space-y-2">
+            <h2 className="text-lg font-normal text-gray-900 transition-colors hover:text-gray-700 sm:text-lg">
+              {post.title}
+            </h2>
+            {post.author ? (
+              <div className="text-sm text-gray-500">
+                {post.author}
+              </div>
+            ) : (
+              <div className="text-sm text-gray-500">
+                Autodidact Labs
+              </div>
+            )}
+          </div>
+        </Link>
       </div>
     </div>
   );
 }
 
 export default function BlogPage() {
-  const posts = getAllPosts();
+  const posts = getBlogPosts();
 
   return (
     <div className="min-h-screen bg-white px-6 sm:px-8 lg:px-12">
@@ -99,7 +77,7 @@ export default function BlogPage() {
           <div className="space-y-0">
             {posts.map((post, index) => (
               <BlogPostItem
-                key={post.id}
+                key={post.slug}
                 post={post}
                 isLast={index === posts.length - 1}
               />
