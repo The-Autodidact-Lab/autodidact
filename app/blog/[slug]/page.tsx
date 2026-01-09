@@ -57,39 +57,57 @@ export default async function BlogPostPage({
       <div className="mx-auto max-w-7xl py-24">
         {/* Back to blog link at the top */}
         <Link 
-          href="/blog"
-          className="group mb-8 inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900"
+          href="/blog/tag/all"
+          className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-8 inline-block"
         >
-          <span>← Back to blog</span>
+          ← Back to blog
         </Link>
 
         {/* Title/Header - centered separately */}
         <div className="flex justify-center mb-8">
-          <div className="w-full max-w-3xl text-center">
+          <div className="w-full max-w-xl text-center">
             {post.isDraft && (
               <div className="mb-4 px-3 py-1.5 bg-yellow-100 border border-yellow-300 rounded text-sm text-yellow-800 inline-block">
                 Draft - Not Published
               </div>
             )}
-            <h1 className="text-3xl font-normal text-gray-900 tracking-tighter mb-2 sm:text-4xl lg:text-5xl">
+            <h1 className="text-2xl md:text-3xl font-medium text-gray-900 mb-2 leading-tight">
               {post.title}
             </h1>
-            <div className="flex flex-col gap-1">
-              <span className="text-sm text-gray-500">
-                {post.date}
-              </span>
-              {post.author && (
-                <span className="text-sm text-gray-500">
-                  {post.author}
-                </span>
+            <div className="flex flex-col gap-2">
+              {post.tags && post.tags.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-1.5">
+                  {post.tags.map((tag) => {
+                    const tagSlug = tag.toLowerCase().replace(/\s+/g, "-");
+                    return (
+                      <Link
+                        key={tag}
+                        href={`/blog/tag/${tagSlug}`}
+                        className="px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
+                      >
+                        {tag}
+                      </Link>
+                    );
+                  })}
+                </div>
               )}
+              <div className="flex flex-col gap-1">
+                <span className="text-xs text-gray-500">
+                  {post.date}
+                </span>
+                {post.author && (
+                  <span className="text-xs text-gray-500">
+                    {post.author}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Article content - centered with TOC relative to it */}
         <div className="flex justify-center">
-          <div className="w-full max-w-3xl relative">
+          <div className="w-full max-w-xl relative">
             {/* Table of Contents Sidebar - absolutely positioned to the left of article content */}
             {toc.length > 0 && (
               <div className="hidden lg:block absolute top-0 -left-[208px] w-48">
@@ -106,7 +124,7 @@ export default async function BlogPostPage({
 
         {/* Navigation section at the bottom */}
         <div className="flex justify-center">
-          <div className="w-full max-w-3xl">
+          <div className="w-full max-w-xl">
             <BlogPostNavigation
               prevPost={prevPost ? { slug: prevPost.slug, title: prevPost.title } : null}
               nextPost={nextPost ? { slug: nextPost.slug, title: nextPost.title } : null}

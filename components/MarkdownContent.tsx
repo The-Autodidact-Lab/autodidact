@@ -26,7 +26,7 @@ const components = {
     return (
       <h2
         id={headerId}
-        className="text-2xl mb-2 scroll-mt-20"
+        className="text-2xl mb-4 mt-8 scroll-mt-20"
       >
         {children}
       </h2>
@@ -38,14 +38,14 @@ const components = {
     return (
       <h3
         id={headerId}
-        className="text-xl font-bold text-black mb-4 scroll-mt-20"
+        className="text-xl font-bold text-black mb-4 mt-6 scroll-mt-20"
       >
         {children}
       </h3>
     );
   },
   p: ({ children }: { children?: ReactNode }) => (
-    <p className="text-md text-gray-700 mb-2">
+    <p className="text-md text-gray-700 mb-6 leading-relaxed">
       {children}
     </p>
   ),

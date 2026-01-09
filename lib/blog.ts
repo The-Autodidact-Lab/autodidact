@@ -9,6 +9,7 @@ export interface BlogPost {
   author: string;
   content: string;
   isDraft: boolean;
+  tags?: string[];
 }
 
 const blogDirectory = join(process.cwd(), "content", "blog");
@@ -37,6 +38,7 @@ export function getBlogPosts(): BlogPost[] {
           author: data.author || "",
           content,
           isDraft: false,
+          tags: data.tags || [],
         };
       })
       .sort((a, b) => {
@@ -69,6 +71,7 @@ export function getBlogPost(slug: string): BlogPost | null {
         author: data.author || "",
         content,
         isDraft: false,
+        tags: data.tags || [],
       };
     }
 
@@ -85,6 +88,7 @@ export function getBlogPost(slug: string): BlogPost | null {
         author: data.author || "",
         content,
         isDraft: true,
+        tags: data.tags || [],
       };
     }
 
@@ -92,5 +96,16 @@ export function getBlogPost(slug: string): BlogPost | null {
   } catch (error) {
     return null;
   }
+}
+
+export function getAllTags(): string[] {
+  const posts = getBlogPosts();
+  const tagSet = new Set<string>();
+  posts.forEach((post) => {
+    if (post.tags) {
+      post.tags.forEach((tag) => tagSet.add(tag.toLowerCase()));
+    }
+  });
+  return Array.from(tagSet).sort();
 }
 

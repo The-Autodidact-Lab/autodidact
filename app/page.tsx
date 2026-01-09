@@ -5,9 +5,8 @@ import { AsciiRipple } from '@/components/background/AsciiRipple';
 export default function Home() {
   const tableOfContents = [
     { number: '01', title: 'My Work', subtitle: 'The most important roles, projects, and ideas that I put my time into.', href: '/work' },
-    { number: '02', title: 'The Main Planter', subtitle: 'The more long-form, polished version of my blog; expect both technical and life-related content (it\'ll be tagged).', href: '/blog' },
-    { number: '03', title: 'Clippings', subtitle: 'Shorter form thoughts and ideas that are worth sharing, but are one-off or aren\'t enough to form a whole post.', href: '/shortform' },
-    { number: '04', title: 'The Birds-Eye View', subtitle: 'Quite literally, I think in graphs...a visualisation of my internal notes and thoughts. Updated roughly every week.', href: '/graph' }
+    { number: '02', title: 'The Main Planter', subtitle: 'A microcosm of some of my thoughts; expect both technical and life-related content, as well as different lengths of content. The tags are the ground truth (hopefully).', href: '/blog' },
+    { number: '03', title: 'A Birds-Eye View', subtitle: 'Quite literally, I think in graphs...a visualisation of my internal notes and thoughts. Updated roughly every week.', href: '/graph' }
   ];
 
   return (
@@ -58,8 +57,11 @@ export default function Home() {
             {/* Right Side - Placeholder Text */}
             <div className="flex-1">
               <div className="space-y-6 text-gray-600">
-                <p className="text-base leading-relaxed sm:text-lg">
+                <p className="text-lg leading-relaxed italic">
                   Life is a collection of <a href="https://www.ribbonfarm.com/2014/11/05/dont-surround-yourself-with-smarter-people/" target="_blank" rel="noreferrer" className="text-gray-900 transition-colors hover:text-gray-700">infinite gamescapes</a>, or a countably infinite set of infinite games and an uncountably infinite set of parrots. 
+                </p>
+                <p className="text-lg leading-relaxed">
+                  If you have reading recs or have strong opinions about continual learning, mimetic desire, or what optimisation means in relationships, please feel free to reach out: <br></br> <a className="underline text-blue-500 hover:text-blue-700" href="mailto:jack.fan.dev@gmail.com">jack [dot] fan [dot] dev [at] gmail [dot] com</a>.
                 </p>
               </div>
             </div>
