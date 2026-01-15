@@ -33,7 +33,7 @@ export const WORK_ITEMS: WorkItem[] = [
       'Software engineering w/ Generative AI final project: graph-based AI research framework for information extraction and divergence from Arxiv, OpenAlex, CORE, etc.',
     date: '09 Dec 2025',
     author: 'Jack Fan, in collaboration with CS1060 Project Team',
-    link: 'https://github.com/cs1060-f25/graphene'
+    link: 'https://github.com/cs1060f25/graph-project'
   },
   {
     id: '3',
