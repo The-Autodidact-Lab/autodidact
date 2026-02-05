@@ -5,19 +5,6 @@ import Link from 'next/link';
 import { ArrowLeft, Map } from 'lucide-react';
 import { ObsidianGraph } from '@/components/graph/ObsidianGraph';
 
-// Helper function to mute/desaturate colors (same as in ObsidianGraph)
-const muteColor = (hex: string): string => {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  
-  const mutedR = Math.round(r * 0.6 + 200 * 0.4);
-  const mutedG = Math.round(g * 0.6 + 200 * 0.4);
-  const mutedB = Math.round(b * 0.6 + 200 * 0.4);
-  
-  return `rgba(${mutedR}, ${mutedG}, ${mutedB}, 0.75)`;
-};
-
 export default function GraphPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [legendData, setLegendData] = useState<Array<{ tag: string; color: string }>>([]);
@@ -78,8 +65,8 @@ export default function GraphPage() {
                 <div
                   className="h-3 w-3 shrink-0 rounded-full"
                   style={{
-                    backgroundColor: muteColor(item.color),
-                    boxShadow: `0 0 0 1px ${muteColor(item.color)}`,
+                    backgroundColor: item.color,
+                    boxShadow: `0 0 0 1px ${item.color}`,
                   }}
                 />
                 <span className="capitalize">{item.tag}</span>

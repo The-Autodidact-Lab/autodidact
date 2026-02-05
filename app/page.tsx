@@ -70,7 +70,22 @@ export default function Home() {
       </div>
 
       {/* Social Links - Bottom Centered */}
-      <div className="relative z-10 flex justify-center pb-8 sm:pb-12 lg:pb-16">
+      <div className="relative z-10 flex flex-col items-center gap-4 pb-8 sm:pb-12 lg:pb-16">
+        {/* Resume Button - Liquid Glassmorphic */}
+        <a
+          href="/JF_resume_05feb.pdf"
+          target="_blank"
+          rel="noreferrer"
+          className="group relative overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 via-white/5 to-white/0 px-6 py-3 backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:from-white/15 hover:via-white/10 hover:to-white/5 hover:shadow-lg hover:shadow-gray-900/10"
+        >
+          <span className="relative z-10 text-sm font-medium text-gray-800 transition-colors group-hover:text-gray-900">
+            Resume
+          </span>
+          {/* Liquid shimmer effect */}
+          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
+        </a>
+
+        {/* Social Icons */}
         <div className="flex items-center gap-6">
           <a
             href="https://github.com/itsjackfan"

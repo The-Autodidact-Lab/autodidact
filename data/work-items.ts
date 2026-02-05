@@ -9,6 +9,14 @@ export type WorkItem = {
 
 export const WORK_ITEMS: WorkItem[] = [
   {
+    id: '1',
+    title: 'Scaling Agentic Intelligence with Principled Multi-agent Decentralisation',
+    description: 'ICML submission with Zhenting Qi and Karly Hou, under the Embodied Minds Lab @ Kempner Institute. Targets the development of a new, generalisable framework for multi-agent interaction and collaboration; the first stepping stone towards a new paradigm for multi-agent system scalability.',
+    date: '28 Jan 2026',
+    author: 'Jack Fan, Zhenting Qi, Karly Hou',
+    link: '/ICML_FINAL.pdf'
+  },
+  {
     id: '2',
     title: 'Custom autodiff + backprop',
     description:
@@ -17,15 +25,15 @@ export const WORK_ITEMS: WorkItem[] = [
     author: 'Jack Fan',
     link: 'https://github.com/itsjackfan/fpu/blob/main/ml/backprop_pytorch.ipynb',
   },
-  {
-    id: '1',
-    title: 'Basis -- towards effective context management in multi-agent systems',
-    description:
-      'Compositional AI systems final research project: bulding a decentralised memory architecture to promote decentralisation and scalability of multi-agent systems.',
-    date: '10 Dec 2025',
-    author: 'Jack Fan',
-    link: '/basis.pdf',
-  },
+  // {
+  //   id: '1',
+  //   title: 'Basis -- towards effective context management in multi-agent systems',
+  //   description:
+  //     'Compositional AI systems final research project: bulding a decentralised memory architecture to promote decentralisation and scalability of multi-agent systems.',
+  //   date: '10 Dec 2025',
+  //   author: 'Jack Fan',
+  //   link: '/basis.pdf',
+  // },
   {
     id: '4',
     title: 'Graphene',
@@ -39,7 +47,7 @@ export const WORK_ITEMS: WorkItem[] = [
     id: '3',
     title: 'Sero',
     description:
-      'Biologically-focussed productivity tool prototype focussed on kairos productivity (see Tiny Experiments).',
+      'Biologically-focussed productivity tool prototype focussed on kairos productivity (see Tiny Experiments by Anne-Laure Le Cunff).',
     date: '04 Dec 2025',
     author: 'Jack Fan, in collaboration with ES239 Project Team',
     link: 'https://github.com/itsjackfan/sero'
