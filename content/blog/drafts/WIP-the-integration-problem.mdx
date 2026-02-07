@@ -1,0 +1,46 @@
+---
+title: "Continual learning as an associative graph"
+date: "24 Jan 2026"
+author: "Jack Fan"
+tags: ["work", "continual learning"]
+---
+
+I've just finished up a draft of a research project (which can be found [here](https://www.jackfan.dev/ICML_FINAL.pdf)) targeting the scaling and development of decentralised multi-agent collaboration architectures. Interestingly however, this project made it very apparent that LLMs fail to be able to effectively reason about actions and their consequences on an external world state (especially when actions themselves are also external i.e. not conducted by the LLM). But...why? And more importantly, what ramifications does this have on the general idea of learning, planning, and reasoning in these autoregressive systems?
+
+## Background: LLM training and inference procedures
+In raw LLMs today, model architectures are built on top of **attention**. This means:
+1. LLMs start by understanding how each token is related to each other through an $O(n^2)$ attention pass
+2. The transformer heads then take these token-level relationships and map them into different dimensional spaces in order to learn higher-level associations; in manifold, form inductive biases towards specific dynamical motifs/trajectories that are suggestive of some ground truth rule in human language
+
+LLMs are then trained, both using traditional ML techniques and RL/fine-tuning, on the policy of **predicting the most accurate next token in the sequence**; that is, the goal of an LLM is to most accurately make use of the higher-order statistical similarities that they've learned such that they can then choose what to say next such that it maximises the reward they get.
+
+(Geometrically/intuitively, you can think of this as there being specific grooves, folds, structures, or associations within some $n$-dimensional space that exist as dynamical motifs with certain gravities, and depending on your input sequence and contextual location within this space, you're pulled toward a certain subset of them that then introduces inductive biases toward what you're most likely to generate next.)
+
+### Limitations in dynamics modelling with today's agents
+The most important thing to consider here is the idea that **LLMs' policy is next-token prediction, NOT world modelling, reasoning, inherent understanding, etc.** Though there exists much scholarly debate about whether or not there actually exists true knowledge within the model about the concepts that the LLM talks about, it remains true that LLMs are not optimised for understanding the world. As a result of this, any associations or world knowledge it picks up as a side effect of its training/dataset is:
+- fragile: knowledge is built on weak parameter associations and activation patterns that are learned from statistical tendencies between tokens, which becomes very easily shifted and prone to [catastrophic forgetting](https://www.ibm.com/think/topics/catastrophic-forgetting)
+- biassed: depending on data, the inherent associations may be strongly biassed (see image generation models and gender/race)
+- static: because weights are often frozen during test-time/inference-time, they are unable to learn updated assocations (and are often hard-pressed to do so because of their fragility); as a result of this, their world-reasoning capabilities often become out-of-date 
+
+---
+## II. humans
+Effective memory and learning in humans is inherently associative and, in some sense, Bayesian:
+- Your understanding of a new piece of information is conditioned on all of the information you've been exposed to before.
+- New understandings are can be considered new connections, either old-old connections or old-new connections (e.g. old-old is a new perspective on something you already knew, where old-new is the idea of a non sequitur or "parrot" --> [[Don’t Surround Yourself With Smarter People]] and you have to adapt your mental model/form new connections to be able to ingress this piece of information)
+
+## III. bringing them together
+Are LLMs currently associative? Sort of. Current learning paradigms in LLMs (imo) solve only part of this paradigm. 
+Weight-space updating = changing the "mental model", though it's extremely hard to manage. It allows for effective old-new connections; however, it's not completely associative because not every connection is old-new.
+Token-space updating = cleverly navigating the existing mental model; exclusively old-old, assuming everything that the LLM has learned before is explicitly and entirely a ground truth and simply attempting to travel those connections to find new connections
+
+## IV. How this will work
+So what does both old-old and old-new look like? Ironically, basically **effective search**; figure out EXACTLY what old-old is and old-new is, with some introduced noise to allow for creativity and dynamism I guess. Here's what I mean:
+- The problem with humans learning is that they are imperfect and need to relearn things, i.e. human learning is lossy and stochastic (learning the same thing at a different time interval proably doesn't yield the exact same result). Furthermore, forgetting turns what should be an old-old into an old-new. You can also analogise forgetting into a "retrieval failure" aka my search (memory) wasn't good enough to find that thing.
+- For LLMs, they have "perfect" (we'll say for now) memory, but they fail to selectively retrieve and instead brute force across their whole memory each time, thinking that everything matters. For effective learning, LLMs should simply understand when to old-old and when to old-new.
+
+The design space thus gets simplified to 3 problems:
+- perfecting search and retrieval within the memory space -- I should know when to use old-old and when to use old-new
+- how to old-old effectively
+- how to old-new effectively
+
+Thus is associative memory.
