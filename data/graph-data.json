@@ -1,34 +1,6 @@
 {
   "nodes": [
     {
-      "id": "Anchors.",
-      "label": "Anchors.",
-      "tags": [
-        "me"
-      ],
-      "color": "#8c00ff",
-      "path": "Anchors."
-    },
-    {
-      "id": "Identity erasure",
-      "label": "Identity erasure",
-      "tags": [
-        "insight"
-      ],
-      "color": "#52e0a3",
-      "path": "Identity erasure"
-    },
-    {
-      "id": "MAS and continual learning extension",
-      "label": "MAS and continual learning extension",
-      "tags": [
-        "action",
-        "ONGOING"
-      ],
-      "color": "#0b7f28",
-      "path": "MAS and continual learning extension"
-    },
-    {
       "id": "clippings/Continual Learning in Token Space",
       "label": "Continual Learning in Token Space",
       "tags": [
@@ -151,16 +123,6 @@
       "path": "clippings/making and keeping friends"
     },
     {
-      "id": "memory as an associative graph",
-      "label": "memory as an associative graph",
-      "tags": [
-        "action",
-        "TODO"
-      ],
-      "color": "#0b7f28",
-      "path": "memory as an associative graph"
-    },
-    {
       "id": "the main planter/\"Enough\" time",
       "label": "\"Enough\" time",
       "tags": [
@@ -215,6 +177,15 @@
       ],
       "color": "#ff0000",
       "path": "the main planter/AllStars biweekly + performance"
+    },
+    {
+      "id": "the main planter/Anchors.",
+      "label": "Anchors.",
+      "tags": [
+        "me"
+      ],
+      "color": "#8c00ff",
+      "path": "the main planter/Anchors."
     },
     {
       "id": "the main planter/Attribution",
@@ -438,6 +409,15 @@
       "path": "the main planter/Hierarchical value set"
     },
     {
+      "id": "the main planter/Identity erasure",
+      "label": "Identity erasure",
+      "tags": [
+        "insight"
+      ],
+      "color": "#52e0a3",
+      "path": "the main planter/Identity erasure"
+    },
+    {
       "id": "the main planter/Impatience",
       "label": "Impatience",
       "tags": [
@@ -528,6 +508,16 @@
       ],
       "color": "#ffd91a",
       "path": "the main planter/Life."
+    },
+    {
+      "id": "the main planter/MAS and continual learning extension",
+      "label": "MAS and continual learning extension",
+      "tags": [
+        "action",
+        "ONGOING"
+      ],
+      "color": "#0b7f28",
+      "path": "the main planter/MAS and continual learning extension"
     },
     {
       "id": "the main planter/MDP",
@@ -1047,6 +1037,16 @@
       "path": "the main planter/love as a choice and a feeling"
     },
     {
+      "id": "the main planter/memory as an associative graph",
+      "label": "memory as an associative graph",
+      "tags": [
+        "action",
+        "TODO"
+      ],
+      "color": "#0b7f28",
+      "path": "the main planter/memory as an associative graph"
+    },
+    {
       "id": "the main planter/minimalist selectivity and the critical path",
       "label": "minimalist selectivity and the critical path",
       "tags": [
@@ -1244,6 +1244,16 @@
       "path": "the main planter/trust in relationships"
     },
     {
+      "id": "the main planter/using manifolds to inform continual learning",
+      "label": "using manifolds to inform continual learning",
+      "tags": [
+        "thought",
+        "ONGOING"
+      ],
+      "color": "#83badd",
+      "path": "the main planter/using manifolds to inform continual learning"
+    },
+    {
       "id": "the main planter/vulnerabilities as memories",
       "label": "vulnerabilities as memories",
       "tags": [
@@ -1251,79 +1261,9 @@
       ],
       "color": "#83badd",
       "path": "the main planter/vulnerabilities as memories"
-    },
-    {
-      "id": "using manifolds to inform continual learning",
-      "label": "using manifolds to inform continual learning",
-      "tags": [
-        "thought",
-        "ONGOING"
-      ],
-      "color": "#83badd",
-      "path": "using manifolds to inform continual learning"
     }
   ],
   "links": [
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Being a fit"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/performativism"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Non-directional maximalism"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/the social chess game"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/need to be in control"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/minimising the potential of loss"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Expectation that I'm the best"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Talented kids usually don't work hard"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Intrinsic motivation and caring"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Me."
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Starting instead of continuing"
-    },
-    {
-      "source": "Identity erasure",
-      "target": "the main planter/Means vs ends"
-    },
-    {
-      "source": "MAS and continual learning extension",
-      "target": "the main planter/Decentralised MAS paper"
-    },
-    {
-      "source": "MAS and continual learning extension",
-      "target": "using manifolds to inform continual learning"
-    },
-    {
-      "source": "MAS and continual learning extension",
-      "target": "the main planter/MDP"
-    },
     {
       "source": "clippings/Don’t Surround Yourself With Smarter People",
       "target": "the main planter/life gamescape"
@@ -1407,22 +1347,6 @@
     {
       "source": "clippings/making and keeping friends",
       "target": "clippings/Intentionally Making Close Friends"
-    },
-    {
-      "source": "memory as an associative graph",
-      "target": "clippings/Continual Learning in Token Space"
-    },
-    {
-      "source": "memory as an associative graph",
-      "target": "clippings/The Continual Learning Problem"
-    },
-    {
-      "source": "memory as an associative graph",
-      "target": "the main planter/vulnerabilities as memories"
-    },
-    {
-      "source": "memory as an associative graph",
-      "target": "clippings/Don’t Surround Yourself With Smarter People"
     },
     {
       "source": "the main planter/\"Enough\" time",
@@ -1554,7 +1478,7 @@
     },
     {
       "source": "the main planter/Being a fit",
-      "target": "Identity erasure"
+      "target": "the main planter/Identity erasure"
     },
     {
       "source": "the main planter/Being a fit",
@@ -1658,7 +1582,7 @@
     },
     {
       "source": "the main planter/Blogpost ideas",
-      "target": "memory as an associative graph"
+      "target": "the main planter/memory as an associative graph"
     },
     {
       "source": "the main planter/Blogpost ideas",
@@ -1666,7 +1590,7 @@
     },
     {
       "source": "the main planter/Blogpost ideas",
-      "target": "using manifolds to inform continual learning"
+      "target": "the main planter/using manifolds to inform continual learning"
     },
     {
       "source": "the main planter/CNN",
@@ -1921,6 +1845,54 @@
       "target": "the main planter/Sacrifice in relationships"
     },
     {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Being a fit"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/performativism"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Non-directional maximalism"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/the social chess game"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/need to be in control"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/minimising the potential of loss"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Expectation that I'm the best"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Talented kids usually don't work hard"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Intrinsic motivation and caring"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Me."
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Starting instead of continuing"
+    },
+    {
+      "source": "the main planter/Identity erasure",
+      "target": "the main planter/Means vs ends"
+    },
+    {
       "source": "the main planter/Impatience",
       "target": "the main planter/Talented kids usually don't work hard"
     },
@@ -2069,6 +2041,18 @@
       "target": "the main planter/seeking external validation"
     },
     {
+      "source": "the main planter/MAS and continual learning extension",
+      "target": "the main planter/Decentralised MAS paper"
+    },
+    {
+      "source": "the main planter/MAS and continual learning extension",
+      "target": "the main planter/using manifolds to inform continual learning"
+    },
+    {
+      "source": "the main planter/MAS and continual learning extension",
+      "target": "the main planter/MDP"
+    },
+    {
       "source": "the main planter/MDP",
       "target": "the main planter/AM158 textbook"
     },
@@ -2106,11 +2090,11 @@
     },
     {
       "source": "the main planter/Me.",
-      "target": "Identity erasure"
+      "target": "the main planter/Identity erasure"
     },
     {
       "source": "the main planter/Me.",
-      "target": "Anchors."
+      "target": "the main planter/Anchors."
     },
     {
       "source": "the main planter/Me.",
@@ -2246,7 +2230,7 @@
     },
     {
       "source": "the main planter/Q1 2026",
-      "target": "MAS and continual learning extension"
+      "target": "the main planter/MAS and continual learning extension"
     },
     {
       "source": "the main planter/Q1 2026",
@@ -2761,6 +2745,22 @@
       "target": "the main planter/compatibility"
     },
     {
+      "source": "the main planter/memory as an associative graph",
+      "target": "clippings/Continual Learning in Token Space"
+    },
+    {
+      "source": "the main planter/memory as an associative graph",
+      "target": "clippings/The Continual Learning Problem"
+    },
+    {
+      "source": "the main planter/memory as an associative graph",
+      "target": "the main planter/vulnerabilities as memories"
+    },
+    {
+      "source": "the main planter/memory as an associative graph",
+      "target": "clippings/Don’t Surround Yourself With Smarter People"
+    },
+    {
       "source": "the main planter/minimalist selectivity and the critical path",
       "target": "the main planter/Mimetic desire"
     },
@@ -3009,32 +3009,32 @@
       "target": "the main planter/Insecurities"
     },
     {
-      "source": "the main planter/vulnerabilities as memories",
-      "target": "the main planter/Being a fit"
-    },
-    {
-      "source": "using manifolds to inform continual learning",
+      "source": "the main planter/using manifolds to inform continual learning",
       "target": "clippings/The Continual Learning Problem"
     },
     {
-      "source": "using manifolds to inform continual learning",
-      "target": "memory as an associative graph"
+      "source": "the main planter/using manifolds to inform continual learning",
+      "target": "the main planter/memory as an associative graph"
     },
     {
-      "source": "using manifolds to inform continual learning",
+      "source": "the main planter/using manifolds to inform continual learning",
       "target": "the main planter/Manifold composition and untangling aka representation learning"
     },
     {
-      "source": "using manifolds to inform continual learning",
+      "source": "the main planter/using manifolds to inform continual learning",
       "target": "the main planter/MLP"
     },
     {
-      "source": "using manifolds to inform continual learning",
+      "source": "the main planter/using manifolds to inform continual learning",
       "target": "the main planter/RNN"
     },
     {
-      "source": "using manifolds to inform continual learning",
+      "source": "the main planter/using manifolds to inform continual learning",
       "target": "the main planter/transformer"
+    },
+    {
+      "source": "the main planter/vulnerabilities as memories",
+      "target": "the main planter/Being a fit"
     }
   ],
   "legend": [
