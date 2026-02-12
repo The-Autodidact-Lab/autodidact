@@ -60,6 +60,13 @@
       "path": "clippings/Mini Blog Post 9- What it means to optimise"
     },
     {
+      "id": "clippings/On the Tradeoffs of SSMs and Transformers",
+      "label": "On the Tradeoffs of SSMs and Transformers",
+      "tags": [],
+      "color": "#888888",
+      "path": "clippings/On the Tradeoffs of SSMs and Transformers"
+    },
+    {
       "id": "clippings/Out There- On Not Finishing",
       "label": "Out There- On Not Finishing",
       "tags": [
@@ -468,7 +475,7 @@
       "tags": [
         "resource",
         "means",
-        "ONGOING"
+        "TODO"
       ],
       "color": "#05004d",
       "path": "the main planter/Karpathy zero to hero"
@@ -814,8 +821,7 @@
       "label": "ThirdLayer KnowledgeBench and potential paper",
       "tags": [
         "ends",
-        "action",
-        "ONGOING"
+        "action"
       ],
       "color": "#ffd91a",
       "path": "the main planter/ThirdLayer KnowledgeBench and potential paper"
@@ -977,7 +983,8 @@
       "id": "the main planter/first-principles understandings of core concepts",
       "label": "first-principles understandings of core concepts",
       "tags": [
-        "means"
+        "means",
+        "ONGOING"
       ],
       "color": "#ffda8a",
       "path": "the main planter/first-principles understandings of core concepts"
