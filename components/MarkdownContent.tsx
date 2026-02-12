@@ -2,7 +2,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import remarkToc from "remark-toc";
+import remarkMath from "remark-math";
 import rehypeSlug from "rehype-slug";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 interface MarkdownContentProps {
   content: string;
@@ -53,6 +56,11 @@ const components = {
     <ul className="list-disc pl-5 space-y-1 mb-4">
       {children}
     </ul>
+  ),
+  ol: ({ children }: { children?: ReactNode }) => (
+    <ol className="list-decimal pl-5 space-y-1 mb-4">
+      {children}
+    </ol>
   ),
   li: ({ children }: { children?: ReactNode }) => (
     <li className="text-md text-gray-700">
@@ -107,8 +115,8 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
         parseFrontmatter: false,
         mdxOptions: {
           format: 'mdx',
-          remarkPlugins: [remarkToc],
-          rehypePlugins: [rehypeSlug],
+          remarkPlugins: [remarkToc, remarkMath],
+          rehypePlugins: [rehypeSlug, rehypeKatex],
         },
       }}
       components={components}
